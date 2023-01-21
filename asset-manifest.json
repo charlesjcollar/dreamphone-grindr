@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/dreamphone-grindr/static/css/main.073c9b0a.css",
+    "main.js": "/dreamphone-grindr/static/js/main.fbeb7794.js",
+    "static/js/787.c5563cff.chunk.js": "/dreamphone-grindr/static/js/787.c5563cff.chunk.js",
+    "static/media/logo.svg": "/dreamphone-grindr/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/dreamphone-grindr/index.html",
+    "main.073c9b0a.css.map": "/dreamphone-grindr/static/css/main.073c9b0a.css.map",
+    "main.fbeb7794.js.map": "/dreamphone-grindr/static/js/main.fbeb7794.js.map",
+    "787.c5563cff.chunk.js.map": "/dreamphone-grindr/static/js/787.c5563cff.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.fbeb7794.js"
+  ]
+}
