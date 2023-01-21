@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 import Login from './components/Login/Login';
+import { Game } from './types';
 
 function App() {
-  const [gameStarted, setGameStarted] = useState(false);
+  const [game, setGame] = useState<Game | undefined>(undefined);
   return (
-    gameStarted ? <></> :
-    <Login />
+    game ? <></> :
+    <Login setGame={setGame} />
   );
 }
 
