@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { colors } from '../Themes/defaultTheme';
 import { Game } from '../../types';
-import { getRandomKey, isKeyValid } from '../../utils/GameUtils';
+import { generateGame, getRandomKey, isKeyValid } from '../../utils/GameUtils';
 import Page from '../Page';
 
 const Logo = styled.img`
@@ -49,7 +49,7 @@ interface PropsI {
 }
 
 export default function Login(props: PropsI): JSX.Element {
-  const [key, setKey] = useState<string | undefined>(undefined);
+  const [key, setKey] = useState<string>('');
   const [isBadKey, setIsBadKey] = useState(false);
 
   const generateRandomKey = (): void => {
@@ -60,7 +60,7 @@ export default function Login(props: PropsI): JSX.Element {
   const validateAndStartGame = (): void => {
     if (isKeyValid(key)) {
       setIsBadKey(false);
-      props.setGame({ key });
+      props.setGame(generateGame(key));
     } else {
       setIsBadKey(true);
     }

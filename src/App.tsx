@@ -6,7 +6,11 @@ import { Game } from './types';
 
 function App(): JSX.Element {
   const [game, setGame] = useState<Game | undefined>(undefined);
-  return game === undefined ? <Login setGame={setGame} /> : <Board />;
+  return game === undefined ? (
+    <Login setGame={setGame} />
+  ) : (
+    <Board game={game} />
+  );
 }
 
 export default App;

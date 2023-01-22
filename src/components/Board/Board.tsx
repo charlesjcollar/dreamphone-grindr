@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Game } from '../../types';
 import Page from '../Page';
 import { colors } from '../Themes/defaultTheme';
 import Thumbnail from '../Thumbnail/Thumbnail';
@@ -50,7 +51,10 @@ const Location = styled.div`
   width: 100%;
 `;
 
-export default function Board(): JSX.Element {
+export default function Board({ game }: { game: Game }): JSX.Element {
+  const thumbnails = game.profiles.map((profile, i) => (
+    <Thumbnail profile={profile} key={i} />
+  ));
   return (
     <Page>
       <HeaderContainer>
@@ -63,12 +67,7 @@ export default function Board(): JSX.Element {
         </Header>
         <Location>Nearby</Location>
       </HeaderContainer>
-      <ThumbnailsContainer>
-        <Thumbnail />
-        <Thumbnail />
-        <Thumbnail />
-        <Thumbnail />
-      </ThumbnailsContainer>
+      <ThumbnailsContainer>{thumbnails}</ThumbnailsContainer>
     </Page>
   );
 }

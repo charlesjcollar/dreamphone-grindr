@@ -10,7 +10,7 @@
     "clue": "Hey, you're probably asking me about the catfish. All I know is that he's not into leather"
   },
   {
-    "category": "Tribe",
+    "category": "tribe",
     "value": "Sober",
     "clue": "I'm not sure about much, but I know his tribe isn't sober."
   },
@@ -143,10 +143,5 @@
     "category": "relationshipStatus",
     "value": "Unspecified",
     "clue": "Not relationship status unspecified"
-  },
-  {
-    "category": "empty",
-    "value": "empty",
-    "clue": "I ain't telling you shit!"
   }
 ]
