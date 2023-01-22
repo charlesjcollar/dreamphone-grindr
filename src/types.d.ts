@@ -1,3 +1,3 @@
 export interface Game {
-  key: string
+  key: string | undefined;
 }
