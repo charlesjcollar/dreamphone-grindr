@@ -8,7 +8,7 @@ import Page from '../Page';
 const Logo = styled.img`
   width: 40%;
   display: inline-block;
-  margin-top: 8rem;
+  margin-top: 4rem;
 `;
 
 const Button = styled.button`
