@@ -1,9 +1,8 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { colors } from "../Themes/defaultTheme";
-import logo from "../../assets/logo.png";
-import { Game } from "../../types";
-import { getRandomKey, isKeyValid } from "../../utils/GameUtils";
+import React, { useState } from 'react'
+import styled from 'styled-components'
+import { colors } from '../Themes/defaultTheme'
+import { Game } from '../../types'
+import { getRandomKey, isKeyValid } from '../../utils/GameUtils'
 
 const Page = styled.div`
   width: 100%;
@@ -37,7 +36,7 @@ const GenerateButton = styled(Button)`
 const PlayButton = styled(Button)`
   background: ${colors.yellow};
   color: ${colors.black};
-`;
+`
 
 const CodeInput = styled.input`
   background: ${colors.background};
@@ -45,41 +44,51 @@ const CodeInput = styled.input`
   border-bottom: 1px solid ${colors.textGray};
   text-align: center;
   color: ${colors.white};
-  padding: .5rem;
+  padding: 0.5rem;
   font-size: 2em;
   width: 70%;
   max-width: 70vw;
   text-transform: uppercase;
-`;
+`
 
-interface propsI{
+interface propsI {
   setGame: (game: Game) => void
-};
+}
 
-export default function Login(props: propsI) {
-  const [key, setKey] = useState<string | undefined>(undefined);
-  const [isBadKey, setIsBadKey] = useState(false);
+export default function Login (props: propsI): JSX.Element {
+  const [key, setKey] = useState<string | undefined>(undefined)
+  const [isBadKey, setIsBadKey] = useState(false)
 
   const generateRandomKey = (): void => {
-    let key = getRandomKey();
-    setKey(key);
-  };
+    const newKey = getRandomKey()
+    setKey(newKey)
+  }
 
   const validateAndStartGame = (): void => {
     if (isKeyValid(key)) {
-      setIsBadKey(false);
+      setIsBadKey(false)
     } else {
-      setIsBadKey(true);
+      setIsBadKey(true)
     }
   }
 
   return (
     <Page>
-      <Logo src={logo} alt="Grindr" /><br />
-      <GenerateButton onClick={generateRandomKey}>Generate New Game</GenerateButton>
+      <Logo src={require('../../assets/logo.png')} alt='Grindr' />
+      <br />
+      <GenerateButton onClick={generateRandomKey}>
+        Generate New Game
+      </GenerateButton>
       <p>Or enter code:</p>
-      <CodeInput type="text" value={key} maxLength={4} onChange={(e) => setKey(e.target.value)} />
-      <p style={{visibility: isBadKey ? "visible" : "hidden"}}>Key is invalid!</p>
+      <CodeInput
+        type='text'
+        value={key}
+        maxLength={4}
+        onChange={(e) => { setKey(e.target.value) }}
+      />
+      <p style={{ visibility: isBadKey ? 'visible' : 'hidden' }}>
+        Key is invalid!
+      </p>
       <PlayButton onClick={validateAndStartGame}>Start Game</PlayButton>
     </Page>
   )
