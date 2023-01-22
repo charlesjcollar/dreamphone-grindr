@@ -34,6 +34,7 @@ const PlayButton = styled(Button)`
 const CodeInput = styled.input`
   background: ${colors.background};
   border: none;
+  border-radius: 0px;
   border-bottom: 1px solid ${colors.textGray};
   text-align: center;
   color: ${colors.white};
