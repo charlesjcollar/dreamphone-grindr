@@ -8,13 +8,15 @@ const ProfileName = styled.span`
   bottom: 0px;
   color: ${colors.white};
   left: 4px;
+  white-space: nowrap;
+  text-overflow: fade;
 `;
 
 const Online = styled.span`
   background: #69e281;
-  border-radius: 0.7rem;
-  height: 0.7rem;
-  width: 0.7rem;
+  border-radius: 0.6rem;
+  height: 0.6rem;
+  width: 0.6rem;
   display: inline-block;
   margin-right: 0.3rem;
 `;
@@ -26,8 +28,8 @@ export default function Thumbnail({
 }): JSX.Element {
   const imageUrl =
     profile.images.length > 0
-      ? '../../assets/img/profiles/'.concat(profile.images[0])
-      : '../../assets/img/blank-profile-thumb.png';
+      ? '/dreamphone-grindr/img/profiles/'.concat(profile.images[0])
+      : '/dreamphone-grindr/img/blank-profile-thumb.png';
   const ProfileContainer = styled.div`
     width: 33.33vw;
     height: 33.33vw;
@@ -39,12 +41,13 @@ export default function Thumbnail({
         rgba(0, 0, 0, 0.5),
         rgba(0, 0, 0, 0) 80%
       ),
-      url(${require(imageUrl)});
+      url(${imageUrl});
     background-size: cover;
     background-position: 5% 0%;
-    font-size: 0.9em;
-    font-weight: 300;
+    font-size: 0.8em;
+    font-weight: 400;
   `;
+
   return (
     <ProfileContainer>
       <ProfileName>

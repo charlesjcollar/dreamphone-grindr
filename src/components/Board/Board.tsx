@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Game } from '../../types';
 import Page from '../Page';
 import { colors } from '../Themes/defaultTheme';
 import Thumbnail from '../Thumbnail/Thumbnail';
-import ThumbnailsContainer from '../Thumbnail/ThumbnailsContainer';
 
 const HeaderContainer = styled.div`
   position: fixed;
@@ -14,6 +13,7 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   height: 7em;
   background: ${colors.background};
+  z-index: 2;
 `;
 
 const Header = styled.div`
@@ -51,19 +51,30 @@ const Location = styled.div`
   width: 100%;
 `;
 
+const ThumbnailsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 7rem;
+  position: absolute;
+  z-index: 1;
+`;
+
 export default function Board({ game }: { game: Game }): JSX.Element {
-  const thumbnails = game.profiles.map((profile, i) => (
-    <Thumbnail profile={profile} key={i} />
-  ));
+  const [thumbnails, setThumbnails] = useState<JSX.Element[]>([]);
+  useEffect(() => {
+    setThumbnails(
+      game.profiles.map((profile, i) => <Thumbnail profile={profile} key={i} />)
+    );
+  }, [game]);
   return (
     <Page>
       <HeaderContainer>
         <Header>
           <ProfileImage
-            src={require('../../assets/img/blank-profile-thumb.png')}
+            src={'/dreamphone-grindr/img/blank-profile-thumb.png'}
           />
           <Browse>Browse</Browse>
-          <FilterImage src={require('../../assets/img/filter-off.png')} />
+          <FilterImage src={'/dreamphone-grindr/img/filter-off.png'} />
         </Header>
         <Location>Nearby</Location>
       </HeaderContainer>
