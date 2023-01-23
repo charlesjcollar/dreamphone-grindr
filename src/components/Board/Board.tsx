@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Game } from '../../types';
-import Page from '../Page';
+import { Game, Profile } from '../../types';
+import { Page } from '../Page';
 import { colors } from '../Themes/defaultTheme';
 import Thumbnail from '../Thumbnail/Thumbnail';
 
@@ -59,11 +59,19 @@ const ThumbnailsContainer = styled.div`
   z-index: 1;
 `;
 
-export default function Board({ game }: { game: Game }): JSX.Element {
+export default function Board({
+  game,
+  setOpenProfile,
+}: {
+  game: Game;
+  setOpenProfile: (profile: Profile | undefined) => void;
+}): JSX.Element {
   const [thumbnails, setThumbnails] = useState<JSX.Element[]>([]);
   useEffect(() => {
     setThumbnails(
-      game.profiles.map((profile, i) => <Thumbnail profile={profile} key={i} />)
+      game.profiles.map((profile, i) => (
+        <Thumbnail setOpenProfile={setOpenProfile} profile={profile} key={i} />
+      ))
     );
   }, [game]);
   return (

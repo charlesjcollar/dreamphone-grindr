@@ -23,8 +23,10 @@ const Online = styled.span`
 
 export default function Thumbnail({
   profile,
+  setOpenProfile,
 }: {
   profile: Profile;
+  setOpenProfile: (profile: Profile | undefined) => void;
 }): JSX.Element {
   const imageUrl =
     profile.images.length > 0
@@ -49,7 +51,11 @@ export default function Thumbnail({
   `;
 
   return (
-    <ProfileContainer>
+    <ProfileContainer
+      onClick={() => {
+        setOpenProfile(profile);
+      }}
+    >
       <ProfileName>
         {Math.random() > 0.5 ? <Online /> : ''}
         {profile.title}

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { colors } from '../Themes/defaultTheme';
 import { Game } from '../../types';
 import { generateGame, getRandomKey, isKeyValid } from '../../utils/GameUtils';
-import Page from '../Page';
+import { Page } from '../Page';
 
 const Logo = styled.img`
   width: 40%;
