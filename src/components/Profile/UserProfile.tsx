@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Profile } from '../../types';
 
@@ -23,9 +23,14 @@ const ImageMarker = styled.img`
   margin: 2px;
 `;
 
+const ImgNavContainer = styled.div`
+  position: absolute;
+  z-index: 5;
+`;
+
 const ImgDiv = styled.div`
   display: inline-block;
-  height: 85vh;
+  height: 100%;
 `;
 
 const QuarterImgDiv = styled(ImgDiv)`
@@ -36,6 +41,24 @@ const HalfImgDiv = styled(ImgDiv)`
   width: 50vw;
 `;
 
+const ImagesContainer = styled.div`
+  position: fixed;
+  z-index: 1;
+  height: 100vh;
+`;
+
+const ImagesSlider = styled.div`
+  position: absolute;
+  height: auto;
+`;
+
+const ImageDiv = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: inline-block;
+  overflow: hidden;
+`;
+
 export default function UserProfile({
   setOpenProfile,
   profile,
@@ -44,18 +67,45 @@ export default function UserProfile({
   profile: Profile;
 }): JSX.Element {
   const [selectedImg, setSelectedImg] = useState(0);
+  const [enlargedImg, setEnlargedImg] = useState(false);
+  const [imageMarkers, setImageMarkers] = useState<JSX.Element[]>([]);
+  const [renderedImages, setRenderedImages] = useState<JSX.Element[]>([]);
 
-  const imageMarkers = profile.images.map((imgSrc, index) => {
-    return (
-      <ImageMarker
-        src={'/dreamphone-grindr/img/dash.png'}
-        style={{ opacity: selectedImg === index ? '100%' : '30%' }}
-        key={index}
-      />
+  useEffect(() => {
+    setImageMarkers(
+      profile.images.map((imgSrc, index) => {
+        console.log(selectedImg);
+        return (
+          <ImageMarker
+            src={'/dreamphone-grindr/img/dash.png'}
+            style={{ opacity: index === selectedImg ? '100%' : '30%' }}
+            key={index}
+          />
+        );
+      })
     );
-  });
+  }, [selectedImg]);
 
-  setSelectedImg(0);
+  useEffect(() => {
+    setRenderedImages(
+      profile.images.length === 0
+        ? [<img src={'/dreamphone-grindr/img/blank-profile.png'} key={0} />]
+        : profile.images.map((imgSrc, index) => (
+            <ImageDiv
+              style={{
+                background: 'url(/dreamphone-grindr/img/profiles/'
+                  .concat(imgSrc)
+                  .concat(')'),
+                backgroundSize: enlargedImg ? 'contain' : 'cover',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                transition: 'background-size .2s',
+              }}
+              key={index}
+            ></ImageDiv>
+          ))
+    );
+  }, [enlargedImg]);
 
   return (
     <div style={{ position: 'relative' }}>
@@ -69,11 +119,39 @@ export default function UserProfile({
         <div>{imageMarkers}</div>
         <BackArrow src={'/dreamphone-grindr/img/block.png'} />
       </Header>
-      <div>
-        <QuarterImgDiv></QuarterImgDiv>
-        <QuarterImgDiv></QuarterImgDiv>
-        <HalfImgDiv></HalfImgDiv>
-      </div>
+      <ImagesContainer
+        style={{ width: (renderedImages.length * 100).toString().concat('vw') }}
+      >
+        <ImagesSlider
+          style={{
+            left: (selectedImg * -100).toString().concat('vw'),
+            transition: 'left .3s',
+          }}
+        >
+          {renderedImages}
+        </ImagesSlider>
+      </ImagesContainer>
+      <ImgNavContainer style={{ height: enlargedImg ? '100vh' : '80vh' }}>
+        <QuarterImgDiv
+          onClick={() => {
+            setSelectedImg(selectedImg === 0 ? 0 : selectedImg - 1);
+          }}
+        ></QuarterImgDiv>
+        <QuarterImgDiv
+          onClick={() => {
+            setEnlargedImg(!enlargedImg);
+          }}
+        ></QuarterImgDiv>
+        <HalfImgDiv
+          onClick={() => {
+            setSelectedImg(
+              selectedImg === renderedImages.length - 1
+                ? renderedImages.length - 1
+                : selectedImg + 1
+            );
+          }}
+        ></HalfImgDiv>
+      </ImgNavContainer>
       <div>{profile.title}</div>
     </div>
   );
